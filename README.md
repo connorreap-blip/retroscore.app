@@ -1,8 +1,17 @@
-# FlappyBoards
+<p align="center">
+  <img src="public/og-image.svg" alt="FlappyBoards — Retro split-flap display emulator" width="100%" />
+</p>
 
-A hyper-realistic Vestaboard split-flap display emulator. Turn any TV into a retro airport-terminal-style display with 3D animations and synchronized mechanical audio.
+<h1 align="center">FlappyBoards</h1>
 
-**[Live Demo](https://flappyboards.vercel.app)** · **[Launch Display](https://flappyboards.vercel.app/display)**
+<p align="center">
+  Turn any TV into a retro split-flap display.<br/>
+  <sub>3D animations · synced audio · dark/light mode · open source</sub>
+</p>
+
+<p align="center">
+  <a href="https://flappyboards.vercel.app"><strong>Live Demo</strong></a> · <a href="https://flappyboards.vercel.app/display"><strong>Launch Display</strong></a>
+</p>
 
 ---
 
