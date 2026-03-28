@@ -1,6 +1,6 @@
 {
-  "name": "flappyboards",
-  "version": "0.1.0",
+  "name": "retroscore",
+  "version": "1.0.0",
   "private": true,
   "license": "MIT",
   "scripts": {

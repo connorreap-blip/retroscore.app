@@ -1,71 +1,91 @@
-<p align="center">
-  <img src="public/og-image.svg" alt="FlappyBoards — Retro split-flap display emulator" width="100%" />
-</p>
+# RetroScore
 
-<h1 align="center">FlappyBoards</h1>
+A hyper-realistic outfield wall baseball scoreboard for your TV, desktop, or second monitor. Live MLB scores, standings, and schedule — rendered as a vintage hand-posted scoreboard with recessed number plates, 3D indicator lights, and painted metal textures.
 
-<p align="center">
-  Turn any TV into a retro split-flap display.<br/>
-  <sub>3D animations · synced audio · dark/light mode · open source</sub>
-</p>
+## What It Does
 
-<p align="center">
-  <a href="https://flappyboards.vercel.app"><strong>Live Demo</strong></a> · <a href="https://flappyboards.vercel.app/display"><strong>Launch Display</strong></a>
-</p>
+- **Live Scoreboard** -- Inning-by-inning linescore with R/H/E, balls/strikes/outs indicator lights, and current batter
+- **Team Selection** -- Pick your MLB team on first visit; scoreboard tracks your team's game
+- **Around the League** -- Compact live score cards for every game, click any to pull it up on the main board
+- **Standings** -- Your division's W/L/GB
+- **Upcoming Games** -- Next 4 games with probable pitchers
+- **Ballpark Ambiance** -- Synthesized crowd murmur via Web Audio API (no audio files)
+- **Stadium Announcer** -- Web Speech API announces each new batter with PA-style delivery
+- **Fullscreen + TV Mode** -- Built for passive display on a TV; wake lock prevents sleep
+- **Cast Guide** -- Instructions for AirPlay, Chromecast, Roku, and HDMI mirroring
+- **Auto-Cycling Views** -- Alternates between "My Team" and "Around the League" every 10 minutes
 
----
+## The Aesthetic
 
-## What it does
+Every surface is a painted metal outfield wall:
 
-FlappyBoards renders a 6x22 grid of split-flap tiles that animate with realistic CSS 3D transforms. Each tile cycles sequentially through the full character set — just like a real mechanical display — with staggered timing, physics-based easing, and synchronized clack sounds.
+- Matte hunter green with SVG noise texture overlays
+- Recessed number plate slots with inner shadows and hand-placed imperfections (slight rotation/offset)
+- 3D glass dome indicator lights with brushed-metal bezels, specular highlights, and dust/grime layers
+- Water streak weathering, panel seam lines, warm off-white stencil typography
+- Team cap logos from MLB's CDN
+- Venue name displayed in the matchup header
 
-- 30+ curated quotes that auto-rotate on a configurable timer
-- Dark and light theme with monochromatic aesthetic
-- Settings panel for flip speed, stagger delay, rotation interval, volume
-- Custom text input — type any message and send it to the display
-- Weather API integration ready (OpenWeatherMap)
-- PWA-installable for always-on TV mode
-- Responsive scaling from mobile to 4K
+## Tech Stack
 
-## Quick start
+| Layer | Technology |
+|-------|-----------|
+| Framework | Next.js 15 (App Router, Turbopack) |
+| UI | React 19, CSS Modules |
+| State | Zustand 5 with localStorage persistence |
+| Data Fetching | @tanstack/react-query (polling) |
+| Data Source | MLB Stats API (free, no auth) |
+| Audio | Web Audio API (crowd ambiance), Web Speech API (announcer) |
+| Real-time Sync | PartyKit (scaffolded for multi-screen) |
+| Deployment | Vercel |
+
+## Data Source
+
+All game data comes from the [MLB Stats API](https://statsapi.mlb.com/api/v1/) -- free, no authentication required. The app polls every 10-15 seconds during live games and every 60 seconds otherwise.
+
+**Endpoints used:**
+- `/schedule` with `hydrate=linescore,team,probablePitcher,venue` -- today's games
+- `/game/{id}/feed/live` (v1.1) -- detailed game feed with batter info
+- `/standings` with `hydrate=division` -- division standings
+- Team cap logos via `mlbstatic.com/team-logos/team-cap-on-dark/{teamId}.svg`
+
+## Getting Started
 
 ```bash
-git clone https://github.com/vxcozy/flappyboards.git
-cd flappyboards
 npm install
 npm run dev
 ```
 
-Open [http://localhost:3000](http://localhost:3000) for the landing page, or [http://localhost:3000/display](http://localhost:3000/display) for the full-screen display.
+Open [localhost:3000](http://localhost:3000). Pick a team. Watch baseball.
 
-## Documentation
+For TV display, go fullscreen or navigate to `/tv`.
 
-Documentation follows the [Diataxis](https://diataxis.fr) framework:
+## Project Structure
 
-| | Learning-oriented | Task-oriented |
-|---|---|---|
-| **Practical** | [Tutorial](docs/tutorial.md) | [How-to Guides](docs/how-to.md) |
-| **Theoretical** | [Explanation](docs/explanation.md) | [Reference](docs/reference.md) |
+```
+src/
+  app/
+    scoreboard/     Main scoreboard page with data hooks
+    tv/             Passive TV display mode
+  components/
+    scoreboard/     Linescore, NumberPlate, IndicatorLights, StatsPanel
+    cards/          UpcomingGames, Standings, LiveGameCard
+    layout/         TopBar, ViewToggle
+    settings/       TeamPicker, CastGuide
+    shared/         TeamLogo
+  stores/           Zustand stores (team, scoreboard, schedule, standings, league)
+  lib/
+    mlb/            API client, response transforms, 30-team metadata, types
+    audio/          Ballpark ambiance engine, stadium announcer, radio scaffolding
+  styles/           Scoreboard CSS module (board surfaces, plates, lights, weathering)
+```
 
-- **[Tutorial](docs/tutorial.md)** — Get started from zero: install, run, and display your first message
-- **[How-to Guides](docs/how-to.md)** — Solve specific tasks: add custom quotes, enable weather, deploy to a TV
-- **[Reference](docs/reference.md)** — Technical specifications: character set, component API, file structure
-- **[Explanation](docs/explanation.md)** — How it works: animation engine, audio sync, theme system
+## Future
 
-## Tech stack
-
-| Layer | Choice |
-|-------|--------|
-| Framework | Next.js 15 (App Router) |
-| Animation | CSS 3D transforms + imperative DOM manipulation |
-| Audio | Web Audio API (synthesized mechanical clacks) |
-| Styling | Tailwind CSS 4 + CSS Modules |
-| State | Zustand with localStorage persistence |
-| Fonts | Geist Sans + Geist Mono |
-| Deployment | Vercel |
+- Radio stream integration (Radio Browser API scaffolding in place)
+- Native Roku/Fire TV channel
+- Shareable screenshot cards for social
 
 ## License
 
-MIT — see [LICENSE](LICENSE).
-
-Made with ♡ by [Cozy](https://x.com/vec0zy)
+MIT

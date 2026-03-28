@@ -43,3 +43,5 @@ next-env.d.ts
 # skills cache
 .agents/
 skills-lock.json
+.superpowers/
+docs/superpowers/
