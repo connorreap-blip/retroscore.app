@@ -22,13 +22,15 @@ export interface GameScore {
   gamePk: number;
   status: "Preview" | "Live" | "Final";
   detailedState: string;
+  gameDate: string;
   inning: number;
   inningHalf: "Top" | "Bottom";
-  away: { team: MlbTeam; runs: number; hits: number; errors: number };
-  home: { team: MlbTeam; runs: number; hits: number; errors: number };
+  away: { team: MlbTeam; runs: number; hits: number; errors: number; probablePitcher?: string };
+  home: { team: MlbTeam; runs: number; hits: number; errors: number; probablePitcher?: string };
   innings: LinescoreInning[];
   count: { balls: number; strikes: number; outs: number };
-  atBatId?: number;
+  venue?: string;
+  atBatName?: string;
 }
 
 /** Upcoming game for schedule display */

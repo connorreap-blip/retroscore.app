@@ -9,15 +9,17 @@ async function mlbFetch<T>(path: string): Promise<T> {
 /** All games for a date with inline linescore data */
 export function fetchSchedule(date: string) {
   return mlbFetch<MlbScheduleResponse>(
-    `/schedule?sportId=1&date=${date}&hydrate=linescore,team`
+    `/schedule?sportId=1&date=${date}&hydrate=linescore,team,probablePitcher,venue`
   );
 }
 
-/** Full live feed for a specific game */
+/** Full live feed for a specific game (requires v1.1 endpoint) */
 export function fetchGameFeed(gamePk: number) {
-  return mlbFetch<MlbGameFeedResponse>(
-    `/game/${gamePk}/feed/live`
-  );
+  const res = fetch(`https://statsapi.mlb.com/api/v1.1/game/${gamePk}/feed/live`);
+  return res.then((r) => {
+    if (!r.ok) throw new Error(`MLB API ${r.status}: game feed ${gamePk}`);
+    return r.json() as Promise<MlbGameFeedResponse>;
+  });
 }
 
 /** Upcoming games for a team over a date range */
@@ -30,7 +32,7 @@ export function fetchTeamSchedule(teamId: number, startDate: string, endDate: st
 /** Division standings for a season */
 export function fetchStandings(season: number) {
   return mlbFetch<MlbStandingsResponse>(
-    `/standings?leagueId=103,104&season=${season}&standingsTypes=regularSeason`
+    `/standings?leagueId=103,104&season=${season}&standingsTypes=regularSeason&hydrate=division`
   );
 }
 
@@ -51,9 +53,10 @@ export interface MlbScheduleResponse {
       gameDate: string;
       status: { abstractGameState: string; detailedState: string };
       teams: {
-        away: { team: { id: number; name: string } };
-        home: { team: { id: number; name: string } };
+        away: { team: { id: number; name: string }; probablePitcher?: { fullName: string } };
+        home: { team: { id: number; name: string }; probablePitcher?: { fullName: string } };
       };
+      venue?: { name: string };
       linescore?: {
         currentInning?: number;
         inningHalf?: string;
@@ -101,7 +104,7 @@ export interface MlbGameFeedResponse {
     };
     plays: {
       currentPlay?: {
-        matchup?: { batter?: { id: number } };
+        matchup?: { batter?: { id: number; fullName?: string } };
       };
     };
   };

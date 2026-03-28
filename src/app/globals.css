@@ -142,10 +142,13 @@ body {
 :root {
   --sb-board-bg: #2b5341;
   --sb-page-bg: #1e3a2d;
-  --sb-text-color: #e8e8e4;
+  --sb-text-color: #e2dfd6;
   --sb-plate-bg: #1c2b24;
   --sb-line-color: #d1d5db;
   --sb-ball-on: #00e5ff;
   --sb-strike-on: #ff3333;
   --sb-light-off: #111a15;
+  --sb-gold: #c5a55a;
+  --sb-gold-dim: rgba(197,165,90,0.3);
+  --sb-gold-faint: rgba(197,165,90,0.12);
 }

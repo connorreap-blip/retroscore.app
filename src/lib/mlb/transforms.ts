@@ -12,6 +12,7 @@ export function transformScheduleToScores(res: MlbScheduleResponse): GameScore[]
         gamePk: g.gamePk,
         status: normalizeStatus(g.status.abstractGameState),
         detailedState: g.status.detailedState,
+        gameDate: g.gameDate,
         inning: ls?.currentInning ?? 0,
         inningHalf: ls?.inningHalf === "Bottom" ? "Bottom" as const : "Top" as const,
         away: {
@@ -19,15 +20,18 @@ export function transformScheduleToScores(res: MlbScheduleResponse): GameScore[]
           runs: ls?.teams?.away?.runs ?? 0,
           hits: ls?.teams?.away?.hits ?? 0,
           errors: ls?.teams?.away?.errors ?? 0,
+          probablePitcher: g.teams.away.probablePitcher?.fullName,
         },
         home: {
           team: getTeam(g.teams.home.team.id),
           runs: ls?.teams?.home?.runs ?? 0,
           hits: ls?.teams?.home?.hits ?? 0,
           errors: ls?.teams?.home?.errors ?? 0,
+          probablePitcher: g.teams.home.probablePitcher?.fullName,
         },
         innings: (ls?.innings ?? []).map(transformInning),
         count: { balls: ls?.balls ?? 0, strikes: ls?.strikes ?? 0, outs: ls?.outs ?? 0 },
+        venue: g.venue?.name,
       };
     })
   );
@@ -40,6 +44,7 @@ export function transformGameFeed(res: MlbGameFeedResponse, gamePk: number): Gam
     gamePk,
     status: normalizeStatus(res.gameData.status.abstractGameState),
     detailedState: res.gameData.status.detailedState,
+    gameDate: "",
     inning: ls.currentInning,
     inningHalf: ls.inningHalf === "Bottom" ? "Bottom" as const : "Top" as const,
     away: {
@@ -56,7 +61,7 @@ export function transformGameFeed(res: MlbGameFeedResponse, gamePk: number): Gam
     },
     innings: ls.innings.map(transformInning),
     count: { balls: ls.balls, strikes: ls.strikes, outs: ls.outs },
-    atBatId: res.liveData.plays.currentPlay?.matchup?.batter?.id,
+    atBatName: res.liveData.plays.currentPlay?.matchup?.batter?.fullName,
   };
 }
 
@@ -78,9 +83,17 @@ export function transformScheduleToUpcoming(res: MlbScheduleResponse): ScheduleG
   );
 }
 
+/** Map short division names ("AL East") to API names ("American League East") */
+function expandDivision(short: string): string {
+  return short
+    .replace("AL ", "American League ")
+    .replace("NL ", "National League ");
+}
+
 /** Transform standings response, filtered to a division */
 export function transformStandings(res: MlbStandingsResponse, divisionName: string): StandingsEntry[] {
-  const division = res.records.find((r) => r.division.name.includes(divisionName));
+  const expanded = expandDivision(divisionName);
+  const division = res.records.find((r) => r.division?.name === expanded);
   if (!division) return [];
   return division.teamRecords
     .sort((a, b) => Number(a.divisionRank) - Number(b.divisionRank))
