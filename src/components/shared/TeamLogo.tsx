@@ -7,24 +7,15 @@ interface TeamLogoProps {
 
 export default function TeamLogo({ team, size = 26 }: TeamLogoProps) {
   return (
-    <div
+    <img
+      src={`https://www.mlbstatic.com/team-logos/team-cap-on-dark/${team.id}.svg`}
+      alt={team.abbreviation}
+      width={size}
+      height={size}
       style={{
-        width: size,
-        height: size,
-        borderRadius: "50%",
-        background: team.primaryColor,
-        display: "flex",
-        alignItems: "center",
-        justifyContent: "center",
-        fontSize: size * 0.3,
-        fontWeight: "bold",
-        letterSpacing: "0.5px",
-        color: "#fff",
-        border: "1.5px solid rgba(255,255,255,0.1)",
         flexShrink: 0,
+        filter: "drop-shadow(0 1px 2px rgba(0,0,0,0.4))",
       }}
-    >
-      {team.abbreviation}
-    </div>
+    />
   );
 }

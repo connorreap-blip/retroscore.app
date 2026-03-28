@@ -255,7 +255,6 @@ function ScoreboardInner({
   return (
     <div className={`${styles.pageBody} ${isFullscreen ? styles.fullscreen : ""}`}>
       <TopBar
-        team={selectedTeam}
         onSettingsClick={() => setShowPicker(true)}
         onFullscreenClick={toggleFullscreen}
         isFullscreen={isFullscreen}
@@ -402,83 +401,50 @@ function PreviewCountdown({ game }: { game: GameScore }) {
   });
 
   return (
-    <div
-      style={{
-        position: "relative",
-        zIndex: 2,
-        textAlign: "center",
-        padding: "32px 40px",
-        color: "var(--sb-text-color)",
-      }}
-    >
-      {/* Teams */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          alignItems: "center",
-          gap: 24,
-          marginBottom: 24,
-          fontFamily: "Impact, 'Arial Narrow', sans-serif",
-          fontSize: 28,
-          letterSpacing: 3,
-        }}
-      >
-        <span>{game.away.team.abbreviation}</span>
-        <span style={{ fontFamily: "Georgia, serif", fontSize: 14, color: "rgba(232,232,228,0.3)" }}>at</span>
-        <span>{game.home.team.abbreviation}</span>
+    <div className={styles.previewCountdown}>
+      {/* Venue name — hero treatment */}
+      {game.venue && (
+        <div className={styles.previewVenue}>{game.venue}</div>
+      )}
+
+      {/* Logos + matchup */}
+      <div className={styles.previewMatchup}>
+        <img
+          src={`https://www.mlbstatic.com/team-logos/team-cap-on-dark/${game.away.team.id}.svg`}
+          alt={game.away.team.abbreviation}
+          className={styles.previewLogo}
+        />
+        <div className={styles.previewVs}>
+          <span>{game.away.team.abbreviation}</span>
+          <span className={styles.previewAt}>at</span>
+          <span>{game.home.team.abbreviation}</span>
+        </div>
+        <img
+          src={`https://www.mlbstatic.com/team-logos/team-cap-on-dark/${game.home.team.id}.svg`}
+          alt={game.home.team.abbreviation}
+          className={styles.previewLogo}
+        />
       </div>
 
       {/* Probable pitchers */}
-      <div
-        style={{
-          display: "flex",
-          justifyContent: "center",
-          gap: 40,
-          marginBottom: 20,
-          fontFamily: "Georgia, serif",
-          fontSize: 13,
-          color: "rgba(232,232,228,0.4)",
-          letterSpacing: 1,
-        }}
-      >
+      <div className={styles.previewPitchers}>
         <div>
-          <span style={{ color: "rgba(232,232,228,0.25)", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 4 }}>
-            SP {game.away.team.abbreviation}
-          </span>
+          <span className={styles.previewPitcherLabel}>SP {game.away.team.abbreviation}</span>
           {game.away.probablePitcher ?? "TBD"}
         </div>
         <div>
-          <span style={{ color: "rgba(232,232,228,0.25)", fontSize: 10, letterSpacing: 2, textTransform: "uppercase", display: "block", marginBottom: 4 }}>
-            SP {game.home.team.abbreviation}
-          </span>
+          <span className={styles.previewPitcherLabel}>SP {game.home.team.abbreviation}</span>
           {game.home.probablePitcher ?? "TBD"}
         </div>
       </div>
 
       {/* Countdown */}
-      <div
-        style={{
-          fontFamily: "Impact, 'Arial Narrow', sans-serif",
-          fontSize: 48,
-          letterSpacing: 4,
-          color: "var(--sb-text-color)",
-          marginBottom: 12,
-        }}
-      >
+      <div className={styles.previewTimer}>
         {hours > 0 && `${hours}:`}{pad(minutes)}:{pad(seconds)}
       </div>
 
-      {/* First pitch label */}
-      <div
-        style={{
-          fontFamily: "Georgia, serif",
-          fontSize: 13,
-          color: "rgba(232,232,228,0.35)",
-          letterSpacing: 2,
-          textTransform: "uppercase",
-        }}
-      >
+      {/* First pitch */}
+      <div className={styles.previewFirstPitch}>
         First Pitch {timeStr} ET
       </div>
     </div>
