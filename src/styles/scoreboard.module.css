@@ -937,17 +937,15 @@
    ══════════════════════════════════════════ */
 
 .fullscreen {
-  transform: scale(1.12);
-  transform-origin: top center;
-  height: calc(100vh / 1.12);
-  width: calc(100vw / 1.12);
+  height: 100vh;
+  width: 100vw;
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  padding: 12px 28px 10px;
+  padding: 10px 24px 8px;
 }
 
-/* Scoreboard grows to fill but content stays bottom-aligned */
+/* Scoreboard grows to fill available space */
 .fullscreen .scoreboard {
   flex: 1 1 auto;
   display: flex;
