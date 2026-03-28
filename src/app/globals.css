@@ -1,7 +1,7 @@
 @import "tailwindcss";
 
 /* ============================================
-   COZY-INSPIRED THEME SYSTEM
+   THEME SYSTEM
    Monochromatic, minimal, glass-morphism
    ============================================ */
 
@@ -21,7 +21,7 @@
   --divider: rgba(255, 255, 255, 0.08);
   --selection-bg: rgba(255, 255, 255, 0.15);
 
-  /* Split-flap tile colors */
+  /* Tile colors */
   --tile-bg: #1a1a1a;
   --tile-bg-light: #222222;
   --tile-bg-darker: #111111;
@@ -62,7 +62,7 @@
   --divider: rgba(0, 0, 0, 0.08);
   --selection-bg: rgba(0, 0, 0, 0.15);
 
-  /* Split-flap tile colors — inverted for light mode */
+  /* Tile colors — inverted for light mode */
   --tile-bg: #e8e8e8;
   --tile-bg-light: #f0f0f0;
   --tile-bg-darker: #d8d8d8;

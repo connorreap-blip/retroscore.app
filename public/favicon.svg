@@ -1,12 +1,8 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32">
-  <!-- Split-flap tile icon -->
-  <rect x="2" y="2" width="28" height="28" rx="3" fill="#1a1a1a"/>
-  <!-- Top half -->
-  <rect x="2" y="2" width="28" height="14" rx="3" fill="#222"/>
-  <!-- Split line -->
-  <line x1="2" y1="16" x2="30" y2="16" stroke="#000" stroke-width="1" opacity="0.4"/>
-  <!-- Letter F -->
-  <text x="16" y="22" text-anchor="middle" font-family="monospace" font-weight="600" font-size="18" fill="#f0ece4">F</text>
-  <!-- Subtle highlight -->
-  <rect x="2" y="2" width="28" height="1" rx="1" fill="white" opacity="0.08"/>
+  <rect width="32" height="32" rx="6" fill="#2b5341"/>
+  <rect x="4" y="8" width="24" height="16" rx="2" fill="#1c2b24" stroke="rgba(215,210,195,0.25)" stroke-width="0.5"/>
+  <text x="10" y="19" font-family="Impact,sans-serif" font-size="7" fill="#e2dfd6" letter-spacing="0.5">R H E</text>
+  <circle cx="16" cy="27" r="2" fill="none" stroke="rgba(215,210,195,0.3)" stroke-width="0.6"/>
+  <path d="M14.5 25.5Q14 26.5,14.5 28" fill="none" stroke="rgba(215,210,195,0.2)" stroke-width="0.4"/>
+  <path d="M17.5 25.5Q18 26.5,17.5 28" fill="none" stroke="rgba(215,210,195,0.2)" stroke-width="0.4"/>
 </svg>

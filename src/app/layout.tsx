@@ -6,50 +6,46 @@ import { ThemeProvider } from "@/components/ThemeProvider";
 import Providers from "./providers";
 import "./globals.css";
 
-const SITE_URL = "https://flappyboards.xyz";
+const SITE_URL = "https://retroscore.app";
 
 export const metadata: Metadata = {
-  title: "FlappyBoards — Turn any TV into a retro split-flap display",
+  title: "RetroScore — Live MLB scoreboard for your TV",
   description:
-    "A hyper-realistic Vestaboard split-flap display emulator with 3D animations and synced audio. Free and open source. Made by Cozy.",
-  manifest: "/manifest.json",
+    "A hyper-realistic outfield wall baseball scoreboard with live MLB scores, standings, and ballpark ambiance. Built for TVs, desktops, and second monitors.",
   icons: {
-    icon: [
-      { url: "/favicon.svg", type: "image/svg+xml" },
-    ],
+    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
     apple: "/favicon.svg",
   },
   openGraph: {
-    title: "FlappyBoards",
-    description: "Turn any TV into a retro split-flap display. Free & open source.",
+    title: "RetroScore",
+    description:
+      "The most beautiful way to watch baseball on your TV. Live scores on a vintage outfield wall scoreboard.",
     type: "website",
     url: SITE_URL,
-    siteName: "FlappyBoards",
+    siteName: "RetroScore",
   },
   twitter: {
     card: "summary_large_image",
-    title: "FlappyBoards",
-    description: "Turn any TV into a retro split-flap display. Free & open source.",
-    creator: "@vec0zy",
+    title: "RetroScore",
+    description:
+      "Live MLB scoreboard with outfield wall aesthetics. Ballpark sounds. Built for your TV.",
   },
-  authors: [{ name: "Cozy", url: "https://x.com/vec0zy" }],
-  creator: "Cozy",
   keywords: [
-    "split-flap display",
-    "vestaboard",
-    "retro display",
-    "airport terminal",
-    "flip board",
-    "tv display",
-    "open source",
+    "MLB scoreboard",
+    "baseball scoreboard",
+    "live scores",
+    "retro scoreboard",
+    "outfield wall",
+    "tv scoreboard",
+    "baseball standings",
   ],
   metadataBase: new URL(SITE_URL),
 };
 
 export const viewport: Viewport = {
   themeColor: [
-    { media: "(prefers-color-scheme: dark)", color: "#000000" },
-    { media: "(prefers-color-scheme: light)", color: "#f5f5f5" },
+    { media: "(prefers-color-scheme: dark)", color: "#1e3a2d" },
+    { media: "(prefers-color-scheme: light)", color: "#2b5341" },
   ],
 };
 

@@ -1,22 +1,12 @@
 {
-  "name": "FlappyBoards",
-  "short_name": "FlappyBoards",
-  "description": "Turn any TV into a retro split-flap display",
-  "start_url": "/display",
+  "name": "RetroScore",
+  "short_name": "RetroScore",
+  "description": "Live MLB scoreboard with outfield wall aesthetics",
+  "start_url": "/scoreboard",
   "display": "fullscreen",
-  "background_color": "#000000",
-  "theme_color": "#000000",
+  "background_color": "#1e3a2d",
+  "theme_color": "#2b5341",
   "icons": [
-    {
-      "src": "/icons/icon-192.png",
-      "sizes": "192x192",
-      "type": "image/png"
-    },
-    {
-      "src": "/icons/icon-512.png",
-      "sizes": "512x512",
-      "type": "image/png"
-    },
     {
       "src": "/favicon.svg",
       "sizes": "any",
