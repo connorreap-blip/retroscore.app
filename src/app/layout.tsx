@@ -1,7 +1,7 @@
 import type { Metadata, Viewport } from "next";
 import { GeistSans } from "geist/font/sans";
 import { GeistMono } from "geist/font/mono";
-import { Analytics } from "@vercel/analytics/react";
+import { Analytics } from "@vercel/analytics/next";
 import { ThemeProvider } from "@/components/ThemeProvider";
 import Providers from "./providers";
 import "./globals.css";
@@ -13,20 +13,24 @@ export const metadata: Metadata = {
   description:
     "A hyper-realistic outfield wall baseball scoreboard with live MLB scores, standings, and ballpark ambiance. Built for TVs, desktops, and second monitors.",
   icons: {
-    icon: [{ url: "/favicon.svg", type: "image/svg+xml" }],
-    apple: "/favicon.svg",
+    icon: [
+      { url: "/favicon.svg", type: "image/svg+xml" },
+      { url: "/icon", type: "image/png", sizes: "180x180" },
+    ],
+    apple: { url: "/apple-icon", sizes: "180x180" },
+    shortcut: "/favicon.svg",
   },
   openGraph: {
-    title: "RetroScore",
+    title: "RetroScore — Live MLB Scoreboard",
     description:
       "The most beautiful way to watch baseball on your TV. Live scores on a vintage outfield wall scoreboard.",
     type: "website",
-    url: SITE_URL,
+    url: `${SITE_URL}/scoreboard`,
     siteName: "RetroScore",
   },
   twitter: {
     card: "summary_large_image",
-    title: "RetroScore",
+    title: "RetroScore — Live MLB Scoreboard",
     description:
       "Live MLB scoreboard with outfield wall aesthetics. Ballpark sounds. Built for your TV.",
   },
